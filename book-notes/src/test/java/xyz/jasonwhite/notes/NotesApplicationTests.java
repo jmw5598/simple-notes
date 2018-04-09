@@ -1,4 +1,4 @@
-package xyz.jasonwhite.booknotes;
+package xyz.jasonwhite.notes;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BookNotesApplicationTests {
+public class NotesApplicationTests {
 
 	@Test
 	public void contextLoads() {
