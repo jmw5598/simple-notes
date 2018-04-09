@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -82,9 +83,17 @@ public class Section {
     public String getNotes() {
         return notes;
     }
-    
-    public void setNotes(String notes) {
-        this.notes = notes;
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public Topic getTopic() {
