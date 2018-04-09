@@ -1,10 +1,10 @@
 package xyz.jasonwhite.notes.controllers;
 
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import xyz.jasonwhite.notes.controllers.resources.SectionResource;
 import xyz.jasonwhite.notes.controllers.resources.TopicResource;
 import xyz.jasonwhite.notes.model.Section;
 import xyz.jasonwhite.notes.model.Topic;
@@ -21,6 +20,7 @@ import xyz.jasonwhite.notes.repositories.SectionRepository;
 import xyz.jasonwhite.notes.repositories.TopicRepository;
 import xyz.jasonwhite.notes.repositories.exceptions.TopicNotFoundException;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/topics")
 public class TopicController {
