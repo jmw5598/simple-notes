@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import xyz.jasonwhite.notes.controllers.resources.SectionResource;
 import xyz.jasonwhite.notes.controllers.resources.TopicResource;
 import xyz.jasonwhite.notes.model.Section;
 import xyz.jasonwhite.notes.model.Topic;
@@ -69,8 +70,19 @@ public class TopicController {
             .orElseThrow(() -> new TopicNotFoundException(topicId));
     }
     
-//    @PostMapping(path="/{topicId}/sections")
-//    public  ResponseEntity<>
+    @PostMapping(path="/{topicId}/sections")
+    public  ResponseEntity<?> createSection(
+            @PathVariable("topicId") Long topicId, 
+            @RequestBody Section section) {
+        
+        return this.topicRepository.findById(topicId)
+            .map(b -> {
+                b.addSection(section);
+                this.topicRepository.save(b);
+                return ResponseEntity.noContent().build();
+            })
+            .orElseThrow(() -> new TopicNotFoundException(topicId));
+    }
     
     @GetMapping(path="/{topicId}/sections/{sectionId}")
     public ResponseEntity<Section> getChapter(
