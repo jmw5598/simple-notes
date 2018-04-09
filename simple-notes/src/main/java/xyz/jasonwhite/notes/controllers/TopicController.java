@@ -69,15 +69,13 @@ public class TopicController {
             .orElseThrow(() -> new TopicNotFoundException(topicId));
     }
     
-//    @PostMapping(path="/{bookId}/chapters")
+//    @PostMapping(path="/{topicId}/sections")
 //    public  ResponseEntity<>
     
     @GetMapping(path="/{topicId}/sections/{sectionId}")
     public ResponseEntity<Section> getChapter(
             @PathVariable("topicId") Long topicId, 
             @PathVariable("sectionId") Long sectionId) throws Exception {
-        
-        //Optional<Section> section = this.sectionRepository.findById(sectionId);
         
         return this.sectionRepository.findById(sectionId)
             .map(s -> ResponseEntity.ok(s))
