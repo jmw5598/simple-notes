@@ -2,6 +2,7 @@ package xyz.jasonwhite.notes.controllers;
 
 import java.util.Set;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import xyz.jasonwhite.notes.model.Section;
 import xyz.jasonwhite.notes.model.Topic;
 import xyz.jasonwhite.notes.repositories.SectionRepository;
 import xyz.jasonwhite.notes.repositories.TopicRepository;
+import xyz.jasonwhite.notes.repositories.exceptions.SectionNotFoundException;
 import xyz.jasonwhite.notes.repositories.exceptions.TopicNotFoundException;
 
 @CrossOrigin("*")
@@ -72,8 +75,7 @@ public class TopicController {
     
     @PostMapping(path="/{topicId}/sections")
     public  ResponseEntity<?> createSection(
-            @PathVariable("topicId") Long topicId, 
-            @RequestBody Section section) {
+            @PathVariable("topicId") Long topicId, @RequestBody Section section) {
         
         return this.topicRepository.findById(topicId)
             .map(b -> {
@@ -82,18 +84,29 @@ public class TopicController {
                 return ResponseEntity.noContent().build();
             })
             .orElseThrow(() -> new TopicNotFoundException(topicId));
+        
     }
     
     @GetMapping(path="/{topicId}/sections/{sectionId}")
-    public ResponseEntity<Section> getChapter(
-            @PathVariable("topicId") Long topicId, 
-            @PathVariable("sectionId") Long sectionId) throws Exception {
+    public ResponseEntity<Section> getSection(
+            @PathVariable("topicId") Long topicId, @PathVariable("sectionId") Long sectionId) throws Exception {
         
         return this.sectionRepository.findById(sectionId)
             .map(s -> ResponseEntity.ok(s))
-            .orElseThrow(() -> new Exception());
-        
+            .orElseThrow(() -> new SectionNotFoundException(sectionId));
     }
     
+    @PutMapping(path="/{topicId}/sections/{sectionId}")
+    public ResponseEntity<Section> updateSection(
+            @PathVariable("topicId") Long topicId, @PathVariable("sectionId") Long sectionId, @RequestBody Section section) {
 
+        return this.sectionRepository.findById(sectionId)
+            .map(s -> {
+                BeanUtils.copyProperties(section, s);
+                this.sectionRepository.save(s);
+                return ResponseEntity.ok(s);
+            })
+            .orElseThrow(() -> new SectionNotFoundException(sectionId));
+    }
+    
 }
