@@ -5,7 +5,7 @@ public class TopicNotFoundException extends RuntimeException {
     private Long id;
     
     public TopicNotFoundException(final Long id) {
-        super("Book could not be found with id: " + id);
+        super("Topic could not be found with id: " + id);
         this.id = id;
     }
     
