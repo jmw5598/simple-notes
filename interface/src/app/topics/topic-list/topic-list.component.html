@@ -15,7 +15,7 @@
       <td>{{ topic.synopsis }}</td>
       <td>{{ topic.lastModified | date:short }}</td>
       <td class="text-right">
-        <button role="button" class="btn btn-outline-primary btn-sm">
+        <button role="button" class="btn btn-outline-primary btn-sm" [routerLink]="[topic.id]">
           <span class="oi oi-pencil"></span>
         </button>
         <button role="button" class="btn btn-outline-primary btn-sm">
