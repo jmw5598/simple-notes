@@ -1,0 +1,49 @@
+<div class="bg-primary login-container">
+
+  <!-- Login Header -->
+  <div id="login-header">
+    <div class="col-center col-xs-12">
+      <div class="logo">
+        <span class="logo-image">
+          <img src="assets/images/simple-notes-logo.svg" class="img-responsive">
+        </span>
+        <span class="logo-text text-center hidden-sm-down">
+          Simple Notes
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- End Login Header -->
+
+  <!-- Login Form -->
+  <div id="login-form">
+    <div class="col-center card col-xs-12 col-sm-8 col-md-6 col-lg-3">
+      <div class="card-body">
+        <h3>Login</h3>
+        <hr />
+        <form>
+          <fieldset style="margin-top: 16px">
+            <!-- Username Input -->
+            <div class="form-group">
+              <label class="sr-only" for="username">Username</label>
+              <input type="text" class="form-control" id="username" placeholder="Username">
+            </div>
+            <!-- Password Input -->
+            <div class="form-group">
+              <label class="sr-only" for="password">Password</label>
+              <input type="text" class="form-control" id="password" placeholder="Password">
+            </div>
+          </fieldset>
+          <!-- Submit Button -->
+          <hr />
+          <button role="button" (click)="login()" class="btn btn-sm btn-success float-right">
+            <span class="oi oi-account-login" style="margin-right: 8px;"></span>
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End Login Form -->
+
+</div>
