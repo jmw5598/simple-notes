@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AuthenticationService } from '../../core/services/authentication.service';
+
 @Component({
   selector: 'sn-navbar',
   templateUrl: './navbar.component.html',
@@ -7,6 +9,10 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
-  constructor() {}
+  constructor(private authenticationService: AuthenticationService) {}
+
+  logout() {
+    this.authenticationService.logout();
+  }
 
 }
