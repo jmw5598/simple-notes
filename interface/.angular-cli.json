@@ -22,7 +22,8 @@
         "styles.css",
         "assets/css/bootstrap.min.css",
         "assets/css/bootswatch-lumen-theme.min.css",
-        "assets/css/open-iconic-bootstrap.min.css"
+        "assets/css/open-iconic-bootstrap.min.css",
+        "assets/css/github-markdown.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
