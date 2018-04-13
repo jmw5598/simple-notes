@@ -15,14 +15,13 @@
       <td>{{ topic.synopsis }}</td>
       <td>{{ topic.lastModified | date:short }}</td>
       <td class="text-right">
-        <button role="button" class="btn btn-outline-primary btn-sm" [routerLink]="[topic.id]">
+        <button role="button" class="btn btn-outline-primary btn-sm btn-border-none" [routerLink]="[topic.id]">
           <span class="oi oi-pencil"></span>
         </button>
-        <button role="button" class="btn btn-outline-primary btn-sm">
+        <button role="button" class="btn btn-outline-primary btn-sm btn-border-none" (click)="delete(topic.id)">
           <span class="oi oi-trash"></span>
         </button>
       </td>
     </tr>
-
   </tbody>
 </table>
