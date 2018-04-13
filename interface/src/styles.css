@@ -11,3 +11,11 @@
   margin-top: 72px !important;
   padding-top: 16px;
 }
+
+.btn-border-none {
+  border: none !important;
+}
+
+.btn-border-none:hover {
+  margin-top: 0 !important;
+}
