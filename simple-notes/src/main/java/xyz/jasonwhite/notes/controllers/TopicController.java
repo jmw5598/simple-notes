@@ -24,7 +24,6 @@ import xyz.jasonwhite.notes.repositories.TopicRepository;
 import xyz.jasonwhite.notes.repositories.exceptions.SectionNotFoundException;
 import xyz.jasonwhite.notes.repositories.exceptions.TopicNotFoundException;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/topics")
 public class TopicController {
