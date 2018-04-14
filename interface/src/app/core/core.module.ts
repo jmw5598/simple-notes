@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import { AuthenticationService } from './services/authentication.service';
 import { TopicsService } from './services/topics.service';
 
 @NgModule({
@@ -9,7 +8,6 @@ import { TopicsService } from './services/topics.service';
   exports: [],
   declarations: [],
   providers: [
-    AuthenticationService,
     TopicsService
   ]
 })
