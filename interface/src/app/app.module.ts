@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app.routing';
+import { AuthenticationModule } from './authentication/authentication.module';
 import { CoreModule } from './core/core.module';
 import { NavigationModule } from './navigation/navigation.module';
 
@@ -16,6 +17,7 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     AppRoutingModule,
+    AuthenticationModule,
     BrowserModule,
     CoreModule,
     NavigationModule,
