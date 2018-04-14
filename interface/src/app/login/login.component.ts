@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { AuthenticationService } from '../core/services/authentication.service';
+import { AuthenticationService } from '../authentication/services/authentication.service';
 
 @Component({
   selector: 'sn-login',
@@ -9,7 +10,10 @@ import { AuthenticationService } from '../core/services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authenticationService : AuthenticationService) {}
+  constructor(
+    private router: Router,
+    private authenticationService : AuthenticationService
+  ) {}
 
   ngOnInit() {
 
@@ -17,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authenticationService.login();
+    this.router.navigate(['topics']);
   }
 
 }
