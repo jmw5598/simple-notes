@@ -1,8 +1,4 @@
 <div>
-  <sn-login
-      *ngIf="!isAuthenticated"
-      (onLogin)="toggleLogin($event)">
-  </sn-login>
   <sn-navbar *ngIf="isAuthenticated"></sn-navbar>
   <router-outlet></router-outlet>
 </div>
