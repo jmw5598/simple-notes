@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -30,6 +31,8 @@ public class Section {
     @NotNull
     private String synopsis;
     
+    @Column(columnDefinition="CLOB")
+    @Lob
     private String notes;
     
     @Column(updatable=false, insertable=true)
@@ -82,6 +85,10 @@ public class Section {
     
     public String getNotes() {
         return notes;
+    }
+    
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public Date getCreatedOn() {
