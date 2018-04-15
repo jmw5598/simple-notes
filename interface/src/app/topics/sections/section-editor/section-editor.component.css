@@ -8,6 +8,7 @@
 
 .sn-editor-column .card .card-body {
   overflow-x: hidden;
+  position: relative;
 }
 
 .sn-editor-column .card:nth-child(2) .card-body {
@@ -15,7 +16,11 @@
 }
 
 .sn-editor-column .card-body .form-group {
-  height: 100% !important;
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  right: 16px;
+  left: 16px;
 }
 
 .sn-editor-column .card-body textarea {
