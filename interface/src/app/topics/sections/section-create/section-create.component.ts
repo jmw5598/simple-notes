@@ -7,7 +7,7 @@ import { Section } from '../../../shared/model/section.model';
 import { TopicsService } from '../../../core/services/topics.service';
 
 @Component({
-  selector: 'app-section-create',
+  selector: 'sn-section-create',
   templateUrl: './section-create.component.html',
   styleUrls: ['./section-create.component.css']
 })
