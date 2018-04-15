@@ -32,7 +32,11 @@ export class TopicDetailsComponent implements OnInit, OnDestroy {
   }
 
   delete(sectionId: number) {
-    console.log("deleting id...." + sectionId);
+    this.topicsService.deleteSection(this.topic.id, sectionId)
+      .subscribe(
+        data => this.retrieveData(),
+        error => console.log("error deleting section with id: " + sectionId)
+      );
   }
 
   retrieveData() {
