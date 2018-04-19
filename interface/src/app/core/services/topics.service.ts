@@ -11,7 +11,7 @@ import { Topic } from '../../shared/model/topic.model';
 @Injectable()
 export class TopicsService {
 
-  private base: string = "http://192.168.1.13:8080/v1/topics/"
+  private base: string = "http://localhost:8080/v1/topics/"
 
   constructor(private http: Http) {}
 
@@ -56,6 +56,12 @@ export class TopicsService {
   updateSection(
     topicId: number, sectionId: number, section: Section): Observable<Section> {
     return this.http.put(this.base + topicId + "/sections/" + sectionId, section)
+      .map(d => this.extractData(d))
+      .catch(e => this.handleError(e));
+  }
+
+  deleteSection(topicId: number, sectionId: number): Observable<any> {
+    return this.http.delete(this.base + topicId + "/sections/" + sectionId)
       .map(d => this.extractData(d))
       .catch(e => this.handleError(e));
   }
