@@ -25,7 +25,10 @@
         "assets/css/open-iconic-bootstrap.min.css",
         "assets/css/github-markdown.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/jquery-3.3.1.min.js",
+        "assets/js/bootstrap.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
