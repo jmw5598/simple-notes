@@ -84,7 +84,7 @@ public class DocumentConverter {
     /** Converts the input document.
      */
     public void convert() {
-        String command = generateCommand();
+        String command = String.format("%s %s --from=%s --to=%s %s --output=%s", settings.getPandocExec(), fromFile.getAbsoluteFile(), fromFormat, toFormat, extraOptions, toFile.getAbsoluteFile());
         int status;
         try {
             System.out.println("Executing: " + command);
@@ -98,12 +98,6 @@ public class DocumentConverter {
         if (status != 0) {
             throw new RuntimeException("Conversion failed with status code: " + status + ". Command executed: " + command);
         }
-    }
-    
-    private String generateCommand() {
-        String command = settings.getPandocExec() + " " + fromFile.getAbsolutePath() + 
-                " --from=" + fromFormat + " --to=" + toFormat + " " + extraOptions + " --output=" + toFile.getAbsolutePath();
-        return command;
     }
 
 }
