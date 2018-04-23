@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.repository.query.spi.EvaluationContextExtension;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,6 +24,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import xyz.jasonwhite.notes.security.JwtAuthenticationEntryPoint;
 import xyz.jasonwhite.notes.security.JwtAuthorizationTokenFilter;
 import xyz.jasonwhite.notes.security.JwtTokenUtil;
+import xyz.jasonwhite.notes.security.SecurityEvaluationContextExtension;
 import xyz.jasonwhite.notes.security.services.JwtUserDetailsService;
 
 @Configuration
@@ -131,6 +133,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
+    }
+    
+    @Bean
+    EvaluationContextExtension securityExtension() {
+        return new SecurityEvaluationContextExtension();
     }
 
 }
