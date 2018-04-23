@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TopicsService } from './services/topics.service';
 
 @NgModule({
-  imports: [HttpModule],
+  imports: [HttpClientModule],
   exports: [],
   declarations: [],
   providers: [
