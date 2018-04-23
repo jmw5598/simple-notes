@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,6 +16,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import xyz.jasonwhite.notes.security.JwtAuthenticationEntryPoint;
 import xyz.jasonwhite.notes.security.JwtAuthorizationTokenFilter;
@@ -41,6 +45,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
     
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .userDetailsService(jwtUserDetailsService)
+            .passwordEncoder(passwordEncoderBean());
+    }
+    
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         
@@ -63,6 +74,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .headers()
             .frameOptions().sameOrigin()  // required to set for H2 else H2 Console will be blank.
             .cacheControl();
+        
+        httpSecurity.cors();
     }
 
     @Override
@@ -87,6 +100,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/**/*.css",
                 "/**/*.js"
             )
+            
+            .and()
+            .ignoring()
+            .antMatchers(
+                HttpMethod.OPTIONS,
+                "/**"
+            )
 
             // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
             .and()
@@ -103,6 +123,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+    
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new
+                UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 
 }
