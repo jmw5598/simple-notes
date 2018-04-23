@@ -17,8 +17,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import xyz.jasonwhite.notes.model.Topic;
-
 @Entity
 public class User {
 
