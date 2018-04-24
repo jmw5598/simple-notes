@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import xyz.jasonwhite.notes.controllers.resources.SectionResource;
 import xyz.jasonwhite.notes.model.Section;
 import xyz.jasonwhite.notes.model.Topic;
 import xyz.jasonwhite.notes.repositories.SectionRepository;
@@ -45,22 +46,22 @@ public class SectionController {
         
         Topic topic = this.validateTopic(topicId);
         section.setTopic(topic);
-        this.sectionRepository.save(section);
-        return ResponseEntity.noContent().build();
+        Section result = this.sectionRepository.save(section);
+        return ResponseEntity.ok(new SectionResource(topic, result));
     }
     
     @GetMapping(path="/{topicId}/sections/{sectionId}")
-    public ResponseEntity<Section> getSection(
+    public ResponseEntity<SectionResource> getSection(
             @PathVariable("topicId") Long topicId, @PathVariable("sectionId") Long sectionId) {
         
         Topic topic = this.validateTopic(topicId);
         return this.sectionRepository.findByIdAndTopic(sectionId, topic)
-            .map(s -> ResponseEntity.ok(s))
+            .map(s -> ResponseEntity.ok(new SectionResource(topic, s)))
             .orElseThrow(() -> new SectionNotFoundException(sectionId));
     }
     
     @PutMapping(path="/{topicId}/sections/{sectionId}")
-    public ResponseEntity<Section> updateSection(
+    public ResponseEntity<SectionResource> updateSection(
             @PathVariable("topicId") Long topicId, @PathVariable("sectionId") Long sectionId, @RequestBody Section section) {
         
         Topic topic = this.validateTopic(topicId);
@@ -68,7 +69,7 @@ public class SectionController {
             .map(s -> {
                 BeanUtils.copyProperties(section, s);
                 this.sectionRepository.save(s);
-                return ResponseEntity.ok(s);
+                return ResponseEntity.ok(new SectionResource(topic, s));
             })
             .orElseThrow(() -> new SectionNotFoundException(sectionId));
     }
