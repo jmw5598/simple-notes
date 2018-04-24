@@ -34,14 +34,14 @@ export class SectionsService {
       .catch(e => this.handleError(e));
   }
 
-  updateSection(
+  update(
     topicId: number, sectionId: number, section: Section): Observable<SectionResource> {
     return this.http.put(this.base + topicId + "/sections/" + sectionId, section)
       .map(d => { console.log(d); return d;})
       .catch(e => this.handleError(e));
   }
 
-  deleteSection(topicId: number, sectionId: number): Observable<any> {
+  delete(topicId: number, sectionId: number): Observable<any> {
     return this.http.delete(this.base + topicId + "/sections/" + sectionId)
       .map(d => d)
       .catch(e => this.handleError(e));
