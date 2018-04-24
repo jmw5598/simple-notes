@@ -3,6 +3,7 @@ package xyz.jasonwhite.notes.controllers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,6 +71,19 @@ public class SectionController {
                 return ResponseEntity.ok(s);
             })
             .orElseThrow(() -> new SectionNotFoundException(sectionId));
+    }
+    
+    @DeleteMapping(path="/{topicId}/sections/{sectionId}")
+    public ResponseEntity<?> deleteSection(
+            @PathVariable("topicId") Long topicId, @PathVariable("sectionId") Long sectionId) {
+        
+        Topic topic = this.validateTopic(topicId);
+        return this.sectionRepository.findByIdAndTopic(sectionId, topic)
+            .map( p -> {
+                this.sectionRepository.deleteById(topicId);
+                return ResponseEntity.noContent().build();
+            })
+            .orElseThrow(() -> new TopicNotFoundException(topicId));
     }
     
     private Topic validateTopic(Long topicId) {
