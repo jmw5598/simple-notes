@@ -4,17 +4,13 @@
 
 ### Screenshots
 
-![Image of login]
-(https://image.ibb.co/chA7Tc/sn_login.png)
+![Image of login](https://image.ibb.co/chA7Tc/sn_login.png)
 
-![Image of topic list]
-(https://image.ibb.co/fyh48c/sn_topics.png)
+![Image of topic list](https://image.ibb.co/fyh48c/sn_topics.png)
 
-![Image of topic details]
-(https://image.ibb.co/gZ96Mx/sn_sections.png)
+![Image of topic details](https://image.ibb.co/gZ96Mx/sn_sections.png)
 
-![Image of section editor]
-(https://image.ibb.co/kDHFEH/sn_editor.png)
+![Image of section editor](https://image.ibb.co/kDHFEH/sn_editor.png)
 
 
 [Link to screenshots](https://photos.app.goo.gl/Ck7ImjFwUX8SijaW2)
