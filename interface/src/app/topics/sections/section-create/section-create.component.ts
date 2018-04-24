@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Section } from '../../../shared/model/section.model';
-import { TopicsService } from '../../../core/services/topics.service';
+import { SectionsService } from '../../../core/services/sections.service';
 
 @Component({
   selector: 'sn-section-create',
@@ -21,7 +21,7 @@ export class SectionCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private topicsService: TopicsService
+    private sectionsService: SectionsService
   ) { }
 
   ngOnInit() {
@@ -39,13 +39,9 @@ export class SectionCreateComponent implements OnInit {
   }
 
   submit(section: Section) {
-    this.topicsService.createSection(this.topicId, section)
+    this.sectionsService.create(this.topicId, section)
       .subscribe(
-        data => {
-          console.log(data);
-          // api is returning no content need to fix api
-          this.router.navigate(['../../'], { relativeTo: this.route });
-        },
+        data => this.router.navigate(['../', data.section.id], { relativeTo: this.route}),
         error => console.log("error creating new sections for topic id: " + this.topicId)
       );
   }
