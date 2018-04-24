@@ -77,14 +77,14 @@ public class SectionController {
     @DeleteMapping(path="/{topicId}/sections/{sectionId}")
     public ResponseEntity<?> deleteSection(
             @PathVariable("topicId") Long topicId, @PathVariable("sectionId") Long sectionId) {
-        
+        System.out.println("inside delete section");
         Topic topic = this.validateTopic(topicId);
         return this.sectionRepository.findByIdAndTopic(sectionId, topic)
             .map( p -> {
-                this.sectionRepository.deleteById(topicId);
+                this.sectionRepository.deleteById(sectionId);
                 return ResponseEntity.noContent().build();
             })
-            .orElseThrow(() -> new TopicNotFoundException(topicId));
+            .orElseThrow(() -> new SectionNotFoundException(sectionId));
     }
     
     private Topic validateTopic(Long topicId) {
