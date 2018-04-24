@@ -77,7 +77,7 @@ public class SectionController {
     @DeleteMapping(path="/{topicId}/sections/{sectionId}")
     public ResponseEntity<?> deleteSection(
             @PathVariable("topicId") Long topicId, @PathVariable("sectionId") Long sectionId) {
-        System.out.println("inside delete section");
+        
         Topic topic = this.validateTopic(topicId);
         return this.sectionRepository.findByIdAndTopic(sectionId, topic)
             .map( p -> {
