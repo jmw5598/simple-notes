@@ -37,9 +37,6 @@ public class Topic {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
     
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-    private Set<Section> sections;
-    
     private String owner;
     
     @PrePersist
@@ -91,18 +88,6 @@ public class Topic {
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public Set<Section> getSections() {
-        return sections;
-    }
-
-    public void setSections(Set<Section> sections) {
-        this.sections = sections;
-    }
-    
-    public void addSection(Section section) {
-        this.sections.add(section);
     }
 
     public String getOwner() {
