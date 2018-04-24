@@ -18,7 +18,7 @@ public class SectionResource extends ResourceSupport {
         add(linkTo(TopicController.class).slash(topic.getId()).slash("sections").slash(section.getId()).withRel("self"));
     }
     
-    public Section getChater() {
+    public Section getSection() {
         return this.section;
     }
 
