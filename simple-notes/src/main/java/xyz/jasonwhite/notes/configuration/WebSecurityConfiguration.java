@@ -21,6 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import xyz.jasonwhite.notes.security.CorsFilter;
 import xyz.jasonwhite.notes.security.JwtAuthenticationEntryPoint;
 import xyz.jasonwhite.notes.security.JwtAuthorizationTokenFilter;
 import xyz.jasonwhite.notes.security.JwtTokenUtil;
@@ -69,6 +70,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // Custom JWT based security filter
         JwtAuthorizationTokenFilter authenticationTokenFilter = new JwtAuthorizationTokenFilter(userDetailsService(), jwtTokenUtil, tokenHeader);
         httpSecurity
+            .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         // disable page caching
@@ -77,7 +79,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .frameOptions().sameOrigin()  // required to set for H2 else H2 Console will be blank.
             .cacheControl();
         
-        httpSecurity.cors();
+        
     }
 
     @Override
@@ -138,6 +140,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     EvaluationContextExtension securityExtension() {
         return new SecurityEvaluationContextExtension();
+    }
+    
+    @Bean
+    public CorsFilter corsFilter() throws Exception {
+        return new CorsFilter();
     }
 
 }
