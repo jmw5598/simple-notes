@@ -31,7 +31,7 @@ export class TopicCreateComponent implements OnInit {
   submit(topic: Topic) {
     this.topicsService.create(topic)
       .subscribe(
-        data => this.router.navigate(['../', data.id], { relativeTo: this.route }),
+        data => this.router.navigate(['../', data.topic.id], { relativeTo: this.route }),
         error => console.log("error saving new topic " + error)
       );
   }
