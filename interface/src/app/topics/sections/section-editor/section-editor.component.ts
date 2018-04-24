@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
+import { EditorMessage } from './editor-message.enum';
 import { Section } from '../../../shared/model/section.model';
-import { TopicsService } from '../../../core/services/topics.service';
+import { SectionsService } from '../../../core/services/sections.service';
 
 @Component({
   selector: 'sn-section-editor',
@@ -16,14 +17,14 @@ export class SectionEditorComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
   private saveTimer: any;
-  public saveMessage: string = '';
+  public saveMessage: EditorMessage;
   topicId: number;
   sectionId: number;
   section: Section;
 
   constructor(
     private route: ActivatedRoute,
-    private topicsService: TopicsService
+    private sectionsService: SectionsService
   ) { }
 
   ngOnInit() {
@@ -38,14 +39,14 @@ export class SectionEditorComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.saveMessage = "Saving..."
-    this.topicsService.updateSection(this.topicId, this.sectionId, this.section)
+    this.saveMessage = EditorMessage.SAVING;
+    this.sectionsService.update(this.topicId, this.sectionId, this.section)
       .subscribe(
         data => {
-          setTimeout(() => this.saveMessage = 'Saved', 1000);
-          this.section = data;
+          setTimeout(() => this.saveMessage = EditorMessage.SAVED, 1000);
+          this.section = data.section;
         },
-        error => console.log("error updating section with id: " + this.sectionId + " with topic id: " + this.topicId)
+        error => this.saveMessage = EditorMessage.ERROR
       );
   }
 
@@ -58,9 +59,9 @@ export class SectionEditorComponent implements OnInit, OnDestroy {
   }
 
   private retrieveSection() {
-    this.topicsService.findSectionById(this.topicId, this.sectionId)
+    this.sectionsService.findById(this.topicId, this.sectionId)
       .subscribe(
-        data => {this.section = data; console.log(data);},
+        data => this.section = data.section,
         error => console.log("error retrieving section with id: " + this.sectionId + "& topidId: " + this.topicId)
       );
   }
