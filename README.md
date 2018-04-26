@@ -2,6 +2,23 @@
 
 *Simple Notes* is a REST api built with Spring Boot and an Angular 4 frontend.  This is a simple application for organizing your notes.
 
+### Demo Setup
+
+1. Clone the github repository `git clone https://github.com/jmw5598/simple-notes.git`
+2. Run `npm install` on the `interface` directory.
+3. Serve the Angular frontend with `ng serve` while in `~/simple-notes/interface`.
+4. Serve the Spring Boot backend with `mvn spring-boot:run` while in `~/simple-notes/simple-notes`
+5. Navigate to `http://localhost:4200`
+
+Default Credentials
+
+Username | Password | Description
+- | - | -
+admin | admin | Has USER and ADMIN roles
+user | password | Has USER only role
+disabled | password | User that is disabled
+
+
 ### Screenshots
 
 ![Image of login](https://image.ibb.co/chA7Tc/sn_login.png)
