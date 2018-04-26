@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -24,7 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 import club.caliope.udc.InputFormat;
 import club.caliope.udc.OutputFormat;
 import xyz.jasonwhite.notes.controllers.resources.TopicResource;
+import xyz.jasonwhite.notes.model.Section;
 import xyz.jasonwhite.notes.model.Topic;
+import xyz.jasonwhite.notes.repositories.SectionRepository;
 import xyz.jasonwhite.notes.repositories.TopicRepository;
 import xyz.jasonwhite.notes.repositories.exceptions.TopicNotFoundException;
 import xyz.jasonwhite.notes.services.DocumentService;
@@ -35,11 +38,13 @@ import xyz.jasonwhite.notes.utilities.TopicExportUtility;
 public class TopicController {
     
     private TopicRepository topicRepository;
+    private SectionRepository sectionRepository;
     private DocumentService documentService;
     
     @Autowired
-    public TopicController(TopicRepository topicRepository, DocumentService documentService) {
+    public TopicController(TopicRepository topicRepository, SectionRepository sectionRepository, DocumentService documentService) {
         this.topicRepository = topicRepository;
+        this.sectionRepository = sectionRepository;
         this.documentService = documentService;
     }
     
@@ -58,28 +63,50 @@ public class TopicController {
     
     @GetMapping(path="/{topicId}")
     public ResponseEntity<TopicResource> getBook(@PathVariable("topicId") Long topicId) {
-        return this.topicRepository.findById(topicId)
-            .map(b -> ResponseEntity.ok(new TopicResource(b)))
-            .orElseThrow(() -> new TopicNotFoundException(topicId));
+        Topic topic = this.validateTopic(topicId);
+        return ResponseEntity.ok(new TopicResource(topic));
     }
     
     @DeleteMapping(path="/{topicId}")
     public ResponseEntity<?> deleteTopic(@PathVariable("topicId") Long topicId) {
-        return this.topicRepository.findById(topicId)
-            .map( p -> {
-                this.topicRepository.deleteById(topicId);
-                return ResponseEntity.noContent().build();
-            })
-            .orElseThrow(() -> new TopicNotFoundException(topicId));
+        Topic topic = this.validateTopic(topicId);
+        this.sectionRepository.deleteAllByTopic(topic);
+        this.topicRepository.deleteById(topicId);
+        return ResponseEntity.noContent().build();
     }
     
-    @GetMapping(path="/{topicId}/export", produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(path="/{topicId}/export", produces=MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<?> exportTopic(
             @PathVariable("topicId") Long topicId,
-            @RequestParam(value="fileType", defaultValue="txt") OutputFormat fileType) throws IOException {
+            @RequestParam(value="format", defaultValue="pdf") OutputFormat format) throws IOException {
         
-        return null;
+        // TODO: Clean this up with a service
+        Topic topic = this.validateTopic(topicId);
+        Iterable<Section> sections = this.sectionRepository.findAllByTopic(topic);
         
+        String markdown = TopicExportUtility.generateMarkdown(topic, sections);
+        String filename = (topic.getId() + "-" + topic.getTitle()).replaceAll(" ","-").toLowerCase() + "." + format.name().toLowerCase();
+        File file = this.documentService.convert(markdown, InputFormat.MARKDOWN, OutputFormat.LATEX);
+            
+        Path path = Paths.get(file.getAbsolutePath());
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+        
+        HttpHeaders headers = new HttpHeaders(); 
+        headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Content-Disposition");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+            
+        return ResponseEntity.ok()
+            .headers(headers)
+            .contentLength(file.length())
+            .contentType(MediaType.parseMediaType("application/pdf"))
+            .body(resource);
+        
+    }
+    
+    private Topic validateTopic(Long topicId) {
+        return this.topicRepository.findById(topicId)
+            .map(b -> b)
+            .orElseThrow(() -> new TopicNotFoundException(topicId));
     }
     
 }
