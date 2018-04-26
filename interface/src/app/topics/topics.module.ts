@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarkdownModule } from 'angular2-markdown';
+import { SharedModule } from '../shared/shared.module';
 
 import { SectionCreateComponent } from './sections/section-create/section-create.component';
 import { SectionEditorComponent } from './sections/section-editor/section-editor.component';
@@ -12,6 +13,7 @@ import { TopicDashboardComponent } from './topic-dashboard/topic-dashboard.compo
 import { TopicCreateComponent } from './topic-create/topic-create.component';
 import { TopicListComponent } from './topic-list/topic-list.component';
 import { TopicDetailsComponent } from './topic-details/topic-details.component';
+import { TopicExportComponent } from './topic-export/topic-export.component';
 
 @NgModule({
   imports: [
@@ -19,6 +21,7 @@ import { TopicDetailsComponent } from './topic-details/topic-details.component';
     FormsModule,
     MarkdownModule.forRoot(),
     ReactiveFormsModule,
+    SharedModule,
     TopicsRoutingModule
   ],
   exports: [
@@ -33,7 +36,8 @@ import { TopicDetailsComponent } from './topic-details/topic-details.component';
     TopicCreateComponent,
     TopicDashboardComponent,
     TopicDetailsComponent,
-    TopicListComponent
+    TopicListComponent,
+    TopicExportComponent
   ],
   providers: []
 })
