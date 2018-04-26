@@ -13,10 +13,10 @@
 Default Credentials
 
 Username | Password | Description
-- | - | -
-admin | admin | Has USER and ADMIN roles
-user | password | Has USER only role
-disabled | password | User that is disabled
+| - | - | - |
+| admin | admin | Has USER and ADMIN roles |
+| user | password | Has USER only role |
+| disabled | password | User that is disabled |
 
 
 ### Screenshots
