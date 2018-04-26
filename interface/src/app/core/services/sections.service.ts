@@ -17,44 +17,24 @@ export class SectionsService {
   constructor(private http: HttpClient) { }
 
   findAll(topicId: number): Observable<Section[]> {
-    return this.http.get(this.base + topicId + "/sections")
-      .map(d => d)
-      .catch(e => this.handleError(e));
+    return this.http.get<Section[]>(this.base + topicId + "/sections");
   }
 
   findById(topicId: number, sectionId: number): Observable<SectionResource> {
-    return this.http.get(this.base + topicId + "/sections/" + sectionId)
-      .map(d => d)
-      .catch(e => this.handleError(e));
+    return this.http.get<SectionResource>(this.base + topicId + "/sections/" + sectionId);
   }
 
   create(topicId: number, section: Section): Observable<SectionResource> {
-    return this.http.post(this.base + topicId + "/sections/", section)
-      .map(d => { console.log(d); return d;})
-      .catch(e => this.handleError(e));
+    return this.http.post<SectionResource>(this.base + topicId + "/sections/", section);
   }
 
   update(
     topicId: number, sectionId: number, section: Section): Observable<SectionResource> {
-    return this.http.put(this.base + topicId + "/sections/" + sectionId, section)
-      .map(d => { console.log(d); return d;})
-      .catch(e => this.handleError(e));
+    return this.http.put<SectionResource>(this.base + topicId + "/sections/" + sectionId, section);
   }
 
   delete(topicId: number, sectionId: number): Observable<any> {
-    return this.http.delete(this.base + topicId + "/sections/" + sectionId)
-      .map(d => d)
-      .catch(e => this.handleError(e));
-  }
-
-  protected handleError(error: Response | any) {
-    let msg: string;
-    if(error instanceof Response) {
-      msg = error.json() || '';
-    } else {
-      msg = error.message ? error.message : error.toString();
-    }
-    return Observable.throw(msg);
+    return this.http.delete(this.base + topicId + "/sections/" + sectionId);
   }
 
 }
