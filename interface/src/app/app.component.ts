@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthenticationService } from './authentication/services/authentication.service';
@@ -8,25 +8,20 @@ import { AuthenticationService } from './authentication/services/authentication.
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   login = true;
 
-  public isAuthenticated: boolean;
-  private authenticated: Subscription;
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(public authenticationService: AuthenticationService) {}
 
   ngOnInit() {
-    this.authenticationService.authentication
-      .subscribe(
-        data => this.isAuthenticated = data,
-        error => console.log("error subscribing to authencation")
-      );
   }
 
-  ngOnDestroy() {
-    if(this.authenticated)
-      this.authenticated.unsubscribe();
+  isAuthenticated() {
+    let auth: boolean = this.authenticationService.isAuthenticated();
+    console.log("App Auth: " + auth);
+    return auth;
   }
+
 
 }
