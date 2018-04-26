@@ -4,17 +4,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.UUID;
 
-import org.assertj.core.util.Files;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import club.caliope.udc.DocumentConverter;
 import club.caliope.udc.InputFormat;
 import club.caliope.udc.OutputFormat;
-import xyz.jasonwhite.notes.model.Section;
-import xyz.jasonwhite.notes.model.Topic;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -29,7 +25,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public File convert(String md, InputFormat inputFormat, OutputFormat outputFormat) {
         File input = this.writeToFile(md);
-        File output = Files.newTemporaryFile();
+        File output = this.generateTempFile("pdf");
         this.documentConverter
             .fromFile(input, inputFormat)
             .toFile(output, outputFormat)
@@ -39,7 +35,7 @@ public class DocumentServiceImpl implements DocumentService {
     
     @Override
     public File convert(File file, InputFormat inputFormat, OutputFormat outputFormat) {
-        File output = Files.newTemporaryFile();
+        File output = this.generateTempFile("pdf");
         this.documentConverter
             .fromFile(file, inputFormat)
             .toFile(output, outputFormat)
@@ -48,7 +44,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
     
     private File writeToFile(String md) {
-        File file = Files.newTemporaryFile();
+        File file = this.generateTempFile("md");
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(file));
@@ -59,6 +55,18 @@ public class DocumentServiceImpl implements DocumentService {
             ex.printStackTrace();
         }
         return file;
+    }
+    
+    private File generateTempFile(String format) {
+        String path = System.getProperty("user.home");
+        File temp = null;
+        try {
+            temp = File.createTempFile("simple-notes", "." + format, new File(path));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        
+        return temp;
     }
     
 
