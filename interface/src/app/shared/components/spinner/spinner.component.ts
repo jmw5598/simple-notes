@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-spinner',
+  selector: 'sn-spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.css']
 })
 export class SpinnerComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  isSpinning: boolean;
 
-  ngOnInit() {
+  constructor() {
+    this.isSpinning = false;
   }
+
+  ngOnInit() {}
 
 }
