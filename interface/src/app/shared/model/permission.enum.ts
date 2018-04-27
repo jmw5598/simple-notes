@@ -1,4 +1,4 @@
 export enum Permission {
-  PUBLIC = <any>"PULBIC",
+  PUBLIC = <any>"PUBLIC",
   PRIVATE = <any>"PRIVATE"
 }
