@@ -1,4 +1,5 @@
 import { Section } from './section.model';
+import { Permission } from './permission.enum';
 
 export class Topic {
 
@@ -7,7 +8,9 @@ export class Topic {
   public synopsis: string;
   public createdOn: Date;
   public lastModified: Date;
-  public sections: Section[];
+  public permission: Permission;
+  public owner: string;
+  public sections: Section[]
 
   constructor(
     id: number,
@@ -15,14 +18,16 @@ export class Topic {
     synopsis: string,
     createdOn: Date,
     lastModified: Date,
-    sections?: Section[]
+    permission: Permission,
+    owner: string
   ) {
     this.id = id;
     this.title = title;
     this.synopsis = synopsis;
     this.createdOn = createdOn;
     this.lastModified = lastModified;
-    this.sections = this.sections;
+    this.permission = permission;
+    this.owner = owner;
   }
 
 }
