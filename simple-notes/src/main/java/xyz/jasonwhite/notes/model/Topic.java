@@ -1,15 +1,14 @@
 package xyz.jasonwhite.notes.model;
 
 import java.util.Date;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
@@ -36,6 +35,9 @@ public class Topic {
     @Column(updatable=true, insertable=true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
+    
+    @Enumerated(EnumType.STRING)
+    public Permission permission = Permission.PUBLIC;
     
     private String owner;
     
@@ -88,6 +90,14 @@ public class Topic {
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public Permission getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
     }
 
     public String getOwner() {
