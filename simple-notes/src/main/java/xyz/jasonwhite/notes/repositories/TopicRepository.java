@@ -13,11 +13,11 @@ import xyz.jasonwhite.notes.model.Topic;
 public interface TopicRepository extends CrudRepository<Topic, Long> {
     
     @Override
-    @Query("SELECT t FROM Topic t WHERE t.owner = ?#{ authentication.name }")
+    @Query("SELECT t FROM Topic t WHERE t.owner = ?#{ authentication.name } OR t.permission = 'PUBLIC'")
     Iterable<Topic> findAll();
     
     @Override
-    @Query("SELECT t FROM Topic t WHERE t.id = :id AND t.owner = ?#{ authentication.name }")
+    @Query("SELECT t FROM Topic t WHERE t.id = :id AND t.owner = ?#{ authentication.name } OR t.permission = 'PUBLIC'")
     Optional<Topic> findById(@Param("id") Long id);
 
 }
