@@ -17,7 +17,7 @@ public interface TopicRepository extends CrudRepository<Topic, Long> {
     Iterable<Topic> findAll();
     
     @Override
-    @Query("SELECT t FROM Topic t WHERE t.id = :id AND t.owner = ?#{ authentication.name } OR t.permission = 'PUBLIC'")
+    @Query("SELECT t FROM Topic t WHERE t.id = :id AND (t.owner = ?#{ authentication.name } OR t.permission = 'PUBLIC')")
     Optional<Topic> findById(@Param("id") Long id);
 
 }
