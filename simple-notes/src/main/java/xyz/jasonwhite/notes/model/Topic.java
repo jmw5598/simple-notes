@@ -37,7 +37,7 @@ public class Topic {
     private Date lastModified;
     
     @Enumerated(EnumType.STRING)
-    public Permission permission = Permission.PUBLIC;
+    public Permission permission = Permission.PRIVATE;
     
     private String owner;
     
