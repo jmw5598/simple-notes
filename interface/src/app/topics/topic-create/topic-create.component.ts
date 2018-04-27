@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { Permission } from '../../shared/model/permission.enum';
 import { Topic } from '../../shared/model/topic.model';
 import { TopicsService } from '../../core/services/topics.service';
 
@@ -12,6 +13,7 @@ import { TopicsService } from '../../core/services/topics.service';
 })
 export class TopicCreateComponent implements OnInit {
 
+  permission = Permission;
   form: FormGroup;
 
   constructor(
@@ -24,7 +26,8 @@ export class TopicCreateComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required]],
-      synopsis: ['', [Validators.required]]
+      synopsis: ['', [Validators.required]],
+      permission: [Permission.PRIVATE, [Validators.required]]
     });
   }
 

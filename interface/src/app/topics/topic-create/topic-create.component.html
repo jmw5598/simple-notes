@@ -31,6 +31,37 @@
                 </textarea>
               </div>
               <!-- End Synopsis Field Input -->
+
+              <!-- Permission Field -->
+              <div class="form-group">
+                Permission
+                <div class="form-check">
+                  <input
+                      id="private"
+                      class="form-check-input"
+                      name="permission"
+                      formControlName="permission"
+                      type="radio"
+                      [value]="permission.PRIVATE" checked>
+                  <label class="form-check-label" for="private">
+                    Private
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                      id="public"
+                      class="form-check-input"
+                      name="permission"
+                      formControlName="permission"
+                      type="radio"
+                      [value]="permission.PUBLIC">
+                  <label class="form-check-label" for="public">
+                    Public
+                  </label>
+                </div>
+              </div>
+              <!-- End Permission Field -->
+
               <hr />
               <button role="button" type="submit" class="btn btn-primary" [disabled]="!form.valid">Create</button>
 
