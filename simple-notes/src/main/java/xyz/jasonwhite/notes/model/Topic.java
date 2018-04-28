@@ -1,7 +1,10 @@
 package xyz.jasonwhite.notes.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +12,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
@@ -39,7 +45,16 @@ public class Topic {
     @Enumerated(EnumType.STRING)
     public Permission permission = Permission.PRIVATE;
     
+    @NotNull
     private String owner;
+    
+    @ManyToMany(cascade={ CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+        name = "TOPIC_CATEGORY",
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories = new HashSet<>();
     
     @PrePersist
     protected void onCreate() {
@@ -106,6 +121,16 @@ public class Topic {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+    
+    public void addTag(Category category) {
+        categories.add(category);
+        category.getTopics().add(this);
+    }
+    
+    public void removeTag(Category category) {
+        categories.remove(category);
+        category.getTopics().remove(this);
     }
     
 }
