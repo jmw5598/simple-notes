@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -25,8 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import club.caliope.udc.InputFormat;
 import club.caliope.udc.OutputFormat;
 import xyz.jasonwhite.notes.controllers.resources.TopicResource;
+import xyz.jasonwhite.notes.model.Category;
 import xyz.jasonwhite.notes.model.Section;
 import xyz.jasonwhite.notes.model.Topic;
+import xyz.jasonwhite.notes.repositories.CategoryRepository;
 import xyz.jasonwhite.notes.repositories.SectionRepository;
 import xyz.jasonwhite.notes.repositories.TopicRepository;
 import xyz.jasonwhite.notes.repositories.exceptions.TopicNotFoundException;
@@ -37,15 +38,18 @@ import xyz.jasonwhite.notes.utilities.TopicExportUtility;
 @RequestMapping("/v1/topics")
 public class TopicController {
     
+    private CategoryRepository categoryRepository;
     private TopicRepository topicRepository;
     private SectionRepository sectionRepository;
     private DocumentService documentService;
     
     @Autowired
-    public TopicController(TopicRepository topicRepository, SectionRepository sectionRepository, DocumentService documentService) {
+    public TopicController(
+            TopicRepository topicRepository, SectionRepository sectionRepository, DocumentService documentService, CategoryRepository categoryRepository) {
         this.topicRepository = topicRepository;
         this.sectionRepository = sectionRepository;
         this.documentService = documentService;
+        this.categoryRepository = categoryRepository;
     }
     
     @GetMapping
@@ -59,6 +63,14 @@ public class TopicController {
         topic.setOwner(user);
         Topic newTopic = this.topicRepository.save(topic);
         return ResponseEntity.ok(new TopicResource(newTopic));
+    }
+    
+    @GetMapping(path="/search")
+    public ResponseEntity<Iterable<Topic>> searchTopicsByCategory(
+            @RequestParam("categories") Iterable<String> categories) {
+        
+        Iterable<Category> cats = this.categoryRepository.findByDescriptionIn(categories);
+        return ResponseEntity.ok(this.topicRepository.findByCategoriesIn(cats));
     }
     
     @GetMapping(path="/{topicId}")
