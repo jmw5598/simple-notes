@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
-import xyz.jasonwhite.notes.model.Permission;
 import xyz.jasonwhite.notes.model.Section;
 import xyz.jasonwhite.notes.model.Topic;
 
