@@ -8,7 +8,9 @@ public class CsvStringToIterableConverter implements Converter<String, Iterable<
 
     public Iterable<String> convert(String source) {
         String[] values = Arrays.stream(source.split(","))
+            .map(String::toLowerCase)
             .map(String::trim)
+            .distinct()
             .toArray(String[]::new);
         return Arrays.asList(values);
     }
