@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
+import { Category } from '../../shared/model/category.model';
 import { FileResponse } from './file-response.model';
 import { FileType } from '../../shared/model/file-type.enum';
 import { Section } from '../../shared/model/section.model';
@@ -40,11 +41,21 @@ export class TopicsService {
       .map(d => this.extractFile(d));
   }
 
+  search(categories: Category[]) {
+    return this.http.get<Topic[]>(this.base + "search?categories=" + this.generateSearchString(categories));
+  }
+
   protected extractFile(res: Response | any) {
     const header = res.headers.get('Content-Disposition');
     const filename = header.substring(header.indexOf('filename'), header.length).split("=")[1];
     const blob: Blob = res.body;
     return new FileResponse(blob, filename);
+  }
+
+  private generateSearchString(categories: Category[]) {
+    let result = [];
+    categories.forEach((c) => result.push(c.description));
+    return result.join(",");
   }
 
 }
