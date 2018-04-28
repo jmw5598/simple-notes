@@ -6,6 +6,7 @@ import { SectionEditorComponent } from './sections/section-editor/section-editor
 import { TopicCreateComponent } from './topic-create/topic-create.component';
 import { TopicDashboardComponent } from './topic-dashboard/topic-dashboard.component';
 import { TopicDetailsComponent } from './topic-details/topic-details.component';
+import { TopicSearchComponent } from './topic-search/topic-search.component';
 
 const TOPIC_ROUTES = [
   {
@@ -15,6 +16,10 @@ const TOPIC_ROUTES = [
   {
     path: 'create',
     component: TopicCreateComponent
+  },
+  {
+    path: 'search',
+    component: TopicSearchComponent
   },
   {
     path: ':id',
