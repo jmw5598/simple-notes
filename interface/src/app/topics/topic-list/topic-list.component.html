@@ -17,7 +17,7 @@
       <td>{{ topic.permission | titlecase }}</td>
       <td>{{ topic.lastModified | date:short }}</td>
       <td class="text-right">
-        <button role="button" class="btn btn-outline-primary btn-sm btn-border-none" [routerLink]="[topic.id]">
+        <button role="button" class="btn btn-outline-primary btn-sm btn-border-none" [routerLink]="['/topics', topic.id]">
           <span class="oi oi-pencil"></span>
         </button>
         <button role="button" class="btn btn-outline-primary btn-sm btn-border-none" (click)="delete(topic.id)">
