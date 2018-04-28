@@ -14,6 +14,7 @@ import { TopicCreateComponent } from './topic-create/topic-create.component';
 import { TopicListComponent } from './topic-list/topic-list.component';
 import { TopicDetailsComponent } from './topic-details/topic-details.component';
 import { TopicExportComponent } from './topic-export/topic-export.component';
+import { TopicSearchComponent } from './topic-search/topic-search.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { TopicExportComponent } from './topic-export/topic-export.component';
     TopicDashboardComponent,
     TopicDetailsComponent,
     TopicListComponent,
-    TopicExportComponent
+    TopicExportComponent,
+    TopicSearchComponent
   ],
   providers: []
 })
