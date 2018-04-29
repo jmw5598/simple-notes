@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class TagInputComponent implements OnInit {
 
-  private form: FormGroup;
+  public form: FormGroup;
 
   @Output()
   onAdd: EventEmitter<string> = new EventEmitter<string>();
