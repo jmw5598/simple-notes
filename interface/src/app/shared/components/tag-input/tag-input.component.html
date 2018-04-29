@@ -1,4 +1,5 @@
 <form (ngSubmit)="add(form.controls['tag'].value)" [formGroup]="form" novalidate>
+<span class="form-control">
   <span>
     <ng-container *ngFor="let item of items">
       <span [ngClass]="tagStyle" (click)="remove(item)">
@@ -7,12 +8,15 @@
       </span>
     </ng-container>
   </span>
+
   <input
       *ngIf="items.length < maxTagCount"
       type="text"
       name="tag"
       formControlName="tag"
       [ngClass]="formControlStyle"
+      [placeholder]="placeholder"
       (keyup)="onKeyup($event)"
-      (keydown)="onKeydown($event)" />
+      (keydown)="onKeydown($event)"/>
+  </span>
 </form>

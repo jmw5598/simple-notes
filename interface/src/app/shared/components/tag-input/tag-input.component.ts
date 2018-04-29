@@ -23,13 +23,16 @@ export class TagInputComponent implements OnInit {
   separators: string[] = [',', ' ', 'Tab'];
 
   @Input()
-  tagStyle: string = "btn btn-outline-primary btn-sm";
+  tagStyle: string = "badge badge-light";
 
   @Input()
-  formControlStyle: string = "";
+  formControlStyle: string = "form-control-borderless";
 
   @Input()
   maxTagCount: number = 5;
+
+  @Input()
+  placeholder: string = "Search tags";
 
   constructor(private formBuilder: FormBuilder) { }
 
