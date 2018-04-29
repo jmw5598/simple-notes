@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CoreModule } from '../core/core.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { RouterModule } from '@angular/router';
 
@@ -9,7 +11,11 @@ import { NavbarSideService } from './navbar-side/navbar-side.service';
 import { NavigationComponent } from './navigation.component';
 
 @NgModule({
-  imports: [RouterModule, CommonModule],
+  imports: [
+    CommonModule,
+    CoreModule,
+    RouterModule,
+    SharedModule],
   exports: [NavigationComponent],
   declarations: [NavbarComponent, NavbarSideComponent, NavigationComponent],
   providers: [NavbarSideService]
