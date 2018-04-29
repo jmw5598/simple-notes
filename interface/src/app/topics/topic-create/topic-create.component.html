@@ -62,6 +62,17 @@
               </div>
               <!-- End Permission Field -->
 
+              <div class="form-group">
+                <label for="categories">Categories</label>
+                <sn-tag-input
+                    id="categories"
+                    [tagStyle]="'btn btn-sm btn-secondary'"
+                    (onAdd)="onAddCategory($event)"
+                    (onRemove)="onRemoveCategory($event)">
+                </sn-tag-input>
+
+              </div>
+
               <hr />
               <button role="button" type="submit" class="btn btn-primary" [disabled]="!form.valid">Create</button>
 
