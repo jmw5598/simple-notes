@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Category } from '../../shared/model/category.model';
 import { Topic } from '../../shared/model/topic.model';
-import { TopicsSearchService } from './topics-search.service';
+import { TopicsSearchService } from '../../core/services/topics-search.service';
 
 @Component({
   selector: 'sn-topic-search',
