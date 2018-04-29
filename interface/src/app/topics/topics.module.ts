@@ -16,6 +16,8 @@ import { TopicDetailsComponent } from './topic-details/topic-details.component';
 import { TopicExportComponent } from './topic-export/topic-export.component';
 import { TopicSearchComponent } from './topic-search/topic-search.component';
 
+import { TopicsSearchService } from './topic-search/topics-search.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -41,6 +43,8 @@ import { TopicSearchComponent } from './topic-search/topic-search.component';
     TopicExportComponent,
     TopicSearchComponent
   ],
-  providers: []
+  providers: [
+    TopicsSearchService
+  ]
 })
 export class TopicsModule {}
