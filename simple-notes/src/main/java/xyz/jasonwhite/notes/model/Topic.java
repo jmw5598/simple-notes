@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Topic {
     
@@ -54,6 +56,7 @@ public class Topic {
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @JsonIgnoreProperties(value={"topics"})
     private Set<Category> categories = new HashSet<>();
     
     @PrePersist
@@ -123,6 +126,14 @@ public class Topic {
         this.owner = owner;
     }
     
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
     public void addTag(Category category) {
         categories.add(category);
         category.getTopics().add(this);
