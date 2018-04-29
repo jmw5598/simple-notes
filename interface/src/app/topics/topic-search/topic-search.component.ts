@@ -45,18 +45,18 @@ export class TopicSearchComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    this.topicsSearchService.search(this.categories)
+    this.topicsSearchService.search()
   }
 
   onRemove(tag: string) {
     this.topicsSearchService.removeCategory(tag);
-    this.topicsSearchService.search(this.categories);
+    this.topicsSearchService.search();
     console.log(tag);
   }
 
   onAdd(tag: string) {
     this.topicsSearchService.addCategory(tag);
-    this.topicsSearchService.search(this.categories);
+    this.topicsSearchService.search();
     console.log(tag);
   }
 
