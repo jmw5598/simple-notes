@@ -2,3 +2,7 @@
   font-family: 'Tinos', serif;
   color: #FFF;
 }
+
+.navbar-menu-btn {
+  padding-right: 16px !important;
+}
