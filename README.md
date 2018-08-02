@@ -23,7 +23,7 @@ Username | Password | Description
 
 ### Video
 
-![Video Demonstration](https://www.youtube.com/watch?v=T4vOrAVSAH8)
+[Video Demonstration][2]
 
 ### Screenshots
 
@@ -42,3 +42,4 @@ Username | Password | Description
 Security based on Stephan Zerhusen's [Jwt Spring Security Demo][1]
 
 [1]: https://github.com/szerhusenBC/jwt-spring-security-demo
+[2]: https://www.youtube.com/watch?v=T4vOrAVSAH8
