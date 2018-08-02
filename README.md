@@ -4,6 +4,8 @@
 
 ### Demo Setup
 
+Prerequisite: A working installation of Pandoc is required for exporting.
+
 1. Clone the github repository `git clone https://github.com/jmw5598/simple-notes.git`
 2. Run `npm install` on the `interface` directory.
 3. Serve the Angular frontend with `ng serve` while in `~/simple-notes/interface`.
@@ -18,6 +20,10 @@ Username | Password | Description
 | user | password | Has USER only role |
 | disabled | password | User that is disabled |
 
+
+### Video
+
+![Video Demonstration](https://www.youtube.com/watch?v=T4vOrAVSAH8)
 
 ### Screenshots
 
